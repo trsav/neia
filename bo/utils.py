@@ -24,9 +24,9 @@ from tensorflow_probability.substrates import jax as tfp
 import shutil 
 from matplotlib import rc
 import matplotlib as mpl
-plt.rcParams.update({ "text.usetex": True,
-    "font.family": "Berkeley Mono"
-})
+# plt.rcParams.update({ "text.usetex": True,
+#     "font.family": "Berkeley Mono"
+# })
 
 tfd = tfp.distributions
 
@@ -361,8 +361,11 @@ def UCB(x, args):
 def LETHAM(x,args):
     gp_list, f_best_list = args
     SUM = 0 
-    for gp,f_best in zip(gp_list,f_best_list):
-        SUM += EI(x,(gp,f_best))
+    for i in range(len(gp_list)):
+        gp = gp_list[i]
+        f_best = f_best_list[i]
+        val = EI(x,(gp,f_best))
+        SUM -= val
     return SUM / len(gp_list)
 
 
